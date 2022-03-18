@@ -8,21 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Employee_Table")
+@Table(name="employee_table")
 public class Employee {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "EmployeeId")
+	@Column(name = "employee_id")
 	private Integer id;
 	
-	@Column(name = "EmployeeName")
+	@Column(name = "employee_name")
 	private String name;
 	
-	@Column(name="EmployeeEmail")
+	@Column(name="employee_email")
 	private String email;
 	
-	@Column(name="EmployeeRole")
+	@Column(name="employee_role")
 	private String role;
 
 

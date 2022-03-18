@@ -9,25 +9,22 @@ import javax.persistence.Id;
 
 
 @Entity
-@Table(name="User_Credentials")
+@Table(name="user_credentials")
 public class UserCredentials {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="User_Id")
+	@Column(name="user_id")
 	private int Id;
 	
-	@Column(name="User_name")
+	@Column(name="user_name")
 	private  String Username;
 	
-	@Column(name="User_Password")
+	@Column(name="user_password")
 	private String Password;
 	
 	
-	public UserCredentials() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public UserCredentials() {}
 	
 	
 	public UserCredentials(int id, String username, String password) {
