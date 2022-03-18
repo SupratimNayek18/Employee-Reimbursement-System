@@ -37,7 +37,7 @@ public class ExpenseDetails {
 	private double amount;
 	
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name = "employee_id",referencedColumnName = "id")
+	@JoinColumn(name = "employee_id",referencedColumnName = "employee_id")
 	private Employee employee;
 
 	

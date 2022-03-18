@@ -27,7 +27,7 @@ public class UserCredentials {
 	private String userPassword;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "employee_id",referencedColumnName = "id")
+	@JoinColumn(name = "employee_id",referencedColumnName = "employee_id")
 	private Employee employee;
 	
 	
