@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Employee_Table")
+@Table(name = "Request_Table")
 public class Request {
 
 	@Id
@@ -33,11 +33,14 @@ public class Request {
 	@Column(name = "Amount")
 	private double amount;
 
+	
+	// Default Constructor
 	public Request() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	//Parameterized Constructors
 	public Request(Integer id, String description, String status, Locale requestDate, Locale approvalDate,
 			double amount) {
 		super();
@@ -49,6 +52,8 @@ public class Request {
 		this.amount = amount;
 	}
 
+	
+	//Getters and Setters
 	public Integer getId() {
 		return id;
 	}
@@ -97,6 +102,7 @@ public class Request {
 		this.amount = amount;
 	}
 
+	//toString method
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", description=" + description + ", status=" + status + ", requestDate="
