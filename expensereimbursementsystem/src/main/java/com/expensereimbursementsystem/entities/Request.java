@@ -27,7 +27,7 @@ public class Request {
 	@Column(name = "RequestDate")
 	private Locale requestDate;
 
-	@Column(name = "ApprovalDate;")
+	@Column(name = "ApprovalDate")
 	private Locale approvalDate;
 
 	@Column(name = "Amount")
