@@ -15,50 +15,59 @@ public class UserCredentials {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="user_id")
-	private int Id;
+	private int userId;
 	
 	@Column(name="user_name")
-	private  String Username;
+	private  String userName;
 	
 	@Column(name="user_password")
-	private String Password;
-	
-	
-	public UserCredentials() {}
-	
-	
-	public UserCredentials(int id, String username, String password) {
+	private String userPassword;
+
+	public UserCredentials() {
 		super();
-		Id = id;
-		Username = username;
-		Password = password;
+		// TODO Auto-generated constructor stub
 	}
 	
 	
-	public int getId() {
-		return Id;
+
+	public UserCredentials(int userId, String userName, String userPassword) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userPassword = userPassword;
 	}
-	public void setId(int id) {
-		Id = id;
+
+
+
+	public int getUserId() {
+		return userId;
 	}
-	public String getUsername() {
-		return Username;
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-	public void setUsername(String username) {
-		Username = username;
+
+	public String getUserName() {
+		return userName;
 	}
-	public String getPassword() {
-		return Password;
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public void setPassword(String password) {
-		Password = password;
+
+	public String getUserPassword() {
+		return userPassword;
 	}
-	
-		
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+
 	@Override
 	public String toString() {
-		return "UserCredentials [Id=" + Id + ", Username=" + Username + ", Password=" + Password + "]";
+		return "UserCredentials [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword + "]";
 	}
 	
+
 	
 }
