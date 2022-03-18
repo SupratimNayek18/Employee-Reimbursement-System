@@ -10,43 +10,43 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Employee_Table")
+@Table(name = "Employee_Table")
 public class Request {
-
-
-	public Request(Integer id, String description, String status, Locale requestDate, Locale approval, double amount) {
-		super();
-		this.id = id;
-		this.description = description;
-		this.status = status;
-		this.requestDate = requestDate;
-		this.approval = approval;
-		Amount = amount;
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "RequestId")
 	private Integer id;
-	
+
 	@Column(name = "Description")
 	private String description;
-	
-	@Column(name="Status")
+
+	@Column(name = "Status")
 	private String status;
-	
-	@Column(name="RequestDate")
+
+	@Column(name = "RequestDate")
 	private Locale requestDate;
-	
-	@Column(name="ApprovalDate;")
-	private Locale approval;
-	
-	@Column(name="Amount")
-	private double Amount;
-	
+
+	@Column(name = "ApprovalDate;")
+	private Locale approvalDate;
+
+	@Column(name = "Amount")
+	private double amount;
+
 	public Request() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Request(Integer id, String description, String status, Locale requestDate, Locale approvalDate,
+			double amount) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.status = status;
+		this.requestDate = requestDate;
+		this.approvalDate = approvalDate;
+		this.amount = amount;
 	}
 
 	public Integer getId() {
@@ -81,28 +81,26 @@ public class Request {
 		this.requestDate = requestDate;
 	}
 
-	public Locale getApproval() {
-		return approval;
+	public Locale getApprovalDate() {
+		return approvalDate;
 	}
 
-	public void setApproval(Locale approval) {
-		this.approval = approval;
+	public void setApprovalDate(Locale approvalDate) {
+		this.approvalDate = approvalDate;
 	}
 
 	public double getAmount() {
-		return Amount;
+		return amount;
 	}
 
 	public void setAmount(double amount) {
-		Amount = amount;
+		this.amount = amount;
 	}
 
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", description=" + description + ", status=" + status + ", requestDate="
-				+ requestDate + ", approval=" + approval + ", Amount=" + Amount + "]";
+				+ requestDate + ", approvalDate=" + approvalDate + ", amount=" + amount + "]";
 	}
-	
 
 }
-
