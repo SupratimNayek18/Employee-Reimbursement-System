@@ -1,11 +1,17 @@
 package com.expensereimbursementsystem.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="employee_table")
@@ -24,8 +30,10 @@ public class Employee {
 	
 	@Column(name="employee_role")
 	private String role;
-
-
+	
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "employee")
+	private List<ExpenseDetails> expenseRequests = new ArrayList<ExpenseDetails>();
+	
 	// Default Constructor
 	
 	public Employee() {}

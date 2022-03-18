@@ -1,11 +1,14 @@
 package com.expensereimbursementsystem.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 @Entity
@@ -22,23 +25,28 @@ public class UserCredentials {
 	
 	@Column(name="user_password")
 	private String userPassword;
-
-	public UserCredentials() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "employee_id",referencedColumnName = "id")
+	private Employee employee;
 	
 	
-
+	//default constructor
+	
+	public UserCredentials() {}
+	
+	
+	//parameterized constructor
+	
 	public UserCredentials(int userId, String userName, String userPassword) {
-		super();
 		this.userId = userId;
 		this.userName = userName;
 		this.userPassword = userPassword;
 	}
 
 
-
+	//getters and setters
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -63,6 +71,19 @@ public class UserCredentials {
 		this.userPassword = userPassword;
 	}
 
+	
+	public Employee getEmployee() {
+		return employee;
+	}
+
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+
+	//toString method
+	
 	@Override
 	public String toString() {
 		return "UserCredentials [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword + "]";
