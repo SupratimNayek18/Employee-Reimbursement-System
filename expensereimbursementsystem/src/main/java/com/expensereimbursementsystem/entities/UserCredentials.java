@@ -18,7 +18,7 @@ public class UserCredentials {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="user_id")
-	private int userId;
+	private Integer userId;
 	
 	@Column(name="user_name")
 	private  String userName;
@@ -38,7 +38,7 @@ public class UserCredentials {
 	
 	//parameterized constructor
 	
-	public UserCredentials(int userId, String userName, String userPassword) {
+	public UserCredentials(Integer userId, String userName, String userPassword) {
 		this.userId = userId;
 		this.userName = userName;
 		this.userPassword = userPassword;
@@ -51,7 +51,7 @@ public class UserCredentials {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
