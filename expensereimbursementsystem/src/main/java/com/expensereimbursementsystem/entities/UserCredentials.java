@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class UserCredentials {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="user_id")
 	private Integer userId;
 	
@@ -27,7 +27,7 @@ public class UserCredentials {
 	private String userPassword;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "employee_id",referencedColumnName = "employee_id")
+	@JoinColumn(name = "employee_id_fk",referencedColumnName = "employee_id")
 	private Employee employee;
 	
 	
@@ -38,23 +38,15 @@ public class UserCredentials {
 	
 	//parameterized constructor
 	
-	public UserCredentials(Integer userId, String userName, String userPassword) {
-		this.userId = userId;
+	public UserCredentials(String userName, String userPassword) {
 		this.userName = userName;
 		this.userPassword = userPassword;
 	}
 
 
 	//getters and setters
+
 	
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
 	public String getUserName() {
 		return userName;
 	}
@@ -81,14 +73,12 @@ public class UserCredentials {
 		this.employee = employee;
 	}
 
-
 	//toString method
-	
 	@Override
 	public String toString() {
-		return "UserCredentials [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword + "]";
+		return "UserCredentials [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword
+				+ ", employee=" + employee + "]";
 	}
 	
-
 	
 }
