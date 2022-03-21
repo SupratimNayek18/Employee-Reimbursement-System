@@ -11,9 +11,9 @@ public interface EmployeeService {
 
 	public UserCredentials addEmployee(Employee employee,UserCredentials userCredentials);
 	
-	public List<Employee> viewAllEmployee();
+	public List<Employee> viewAllEmployee() throws EmployeeNotFoundException;
 
-	public void deleteEmployee(Integer employeeId) throws DeleteEmployeeException;
+	public String deleteEmployee(Integer employeeId) throws DeleteEmployeeException;
 	
 	public Employee viewEmployeeById(Integer employeeId);
 	

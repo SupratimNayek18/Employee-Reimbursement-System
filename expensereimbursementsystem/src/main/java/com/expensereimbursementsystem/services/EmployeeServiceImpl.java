@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.UserCredentials;
 import com.expensereimbursementsystem.exceptions.DeleteEmployeeException;
+import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
 import com.expensereimbursementsystem.repository.EmployeeRepository;
 import com.expensereimbursementsystem.repository.UserCredentialsRepository;
 
@@ -33,24 +34,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public List<Employee> viewAllEmployee() {
-		List<Employee> employeeList = employeeRepository.findAll();
-		if(employeeList.size() == 0) 
-		{
-					return null;
+	public List<Employee> viewAllEmployee() throws EmployeeNotFoundException {
+		List<Employee> employeeList = (List<Employee>) employeeRepository.findAll();
+		if(employeeList.size() == 0) {
+			throw new EmployeeNotFoundException("No Employees Found");
 		}
 		return employeeList;
 	}
 
 	@Override
-	public void deleteEmployee(Integer employeeId) throws DeleteEmployeeException{
-		if (employeeRepository.findById(employeeId).isPresent())
-		{
+	public String deleteEmployee(Integer employeeId) throws DeleteEmployeeException{
+		if (employeeRepository.findById(employeeId).isPresent()) {
 			employeeRepository.deleteById(employeeId);
-		}
-		else {
+			return "Employee Deleted Successfully";
+		}else {
 			throw new DeleteEmployeeException("Employee not found");
 		}
+		
 	}
 
 	@Override
