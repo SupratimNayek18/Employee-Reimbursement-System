@@ -15,6 +15,6 @@ public interface EmployeeService {
 
 	public void deleteEmployee(Integer employeeId) throws DeleteEmployeeException;
 	
-	public Employee viewEmployeeById(Integer employeeId);
+	public Employee viewEmployeeById(Integer employeeId) throws EmployeeNotFoundException ;
 	
 }

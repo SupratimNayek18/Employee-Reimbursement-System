@@ -1,6 +1,7 @@
 package com.expensereimbursementsystem.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.UserCredentials;
 import com.expensereimbursementsystem.exceptions.DeleteEmployeeException;
+import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
 import com.expensereimbursementsystem.repository.EmployeeRepository;
 import com.expensereimbursementsystem.repository.UserCredentialsRepository;
 
@@ -54,7 +56,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee viewEmployeeById(Integer employeeId)  {
+	public Employee viewEmployeeById(Integer employeeId) throws EmployeeNotFoundException  {
+		
+		Optional<Employee> employee = employeeRepository.findById(employeeId);
+		if(employee.isPresent())
+		{
+			return employee.get();
+		}
+		else
+		{
+			throw new EmployeeNotFoundException("Employee Not Found");
+		}
 		
 	}
 
