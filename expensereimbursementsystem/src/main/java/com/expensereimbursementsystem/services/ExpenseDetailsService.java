@@ -14,7 +14,5 @@ public interface ExpenseDetailsService {
 	public ExpenseDetails fetchByEmployee(Employee employee);
 	
 	public ExpenseDetails updateExpense (String status, Integer id);
-	
-	
 
 }

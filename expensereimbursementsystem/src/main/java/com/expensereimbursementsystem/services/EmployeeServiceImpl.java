@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.UserCredentials;
+import com.expensereimbursementsystem.exceptions.DeleteEmployeeException;
 import com.expensereimbursementsystem.repository.EmployeeRepository;
 import com.expensereimbursementsystem.repository.UserCredentialsRepository;
 
@@ -33,19 +34,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> viewAllEmployee() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void deleteEmployee(Integer employeeId) {
-		// TODO Auto-generated method stub
-
+	public void deleteEmployee(Integer employeeId) throws DeleteEmployeeException{
+		if (employeeRepository.findById(employeeId).isPresent())
+		{
+			employeeRepository.deleteById(employeeId);
+		}
+		else {
+			throw new DeleteEmployeeException("Employee not found");
+		}
 	}
 
 	@Override
-	public Employee viewEmployeeById(Integer employeeId) {
-		// TODO Auto-generated method stub
+	public Employee viewEmployeeById(Integer employeeId)  {
 		return null;
 	}
 
