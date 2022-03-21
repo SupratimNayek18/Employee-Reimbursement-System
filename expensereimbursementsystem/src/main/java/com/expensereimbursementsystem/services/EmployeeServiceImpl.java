@@ -3,6 +3,8 @@ package com.expensereimbursementsystem.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import com.expensereimbursementsystem.repository.EmployeeRepository;
 import com.expensereimbursementsystem.repository.UserCredentialsRepository;
 
 @Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Autowired
@@ -58,14 +61,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee viewEmployeeById(Integer employeeId) throws EmployeeNotFoundException  {
 		
 		Optional<Employee> employee = employeeRepository.findById(employeeId);
-		if(employee.isPresent())
-		{
+		if(employee.isPresent()) {
 			return employee.get();
 		}
-		else
-		{
-			throw new EmployeeNotFoundException("Employee Not Found");
-		}
+		else throw new EmployeeNotFoundException("Employee Not Found");
 		
 	}
 

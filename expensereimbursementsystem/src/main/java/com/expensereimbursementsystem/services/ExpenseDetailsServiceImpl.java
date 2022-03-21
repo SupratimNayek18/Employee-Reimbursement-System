@@ -3,18 +3,27 @@ package com.expensereimbursementsystem.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.ExpenseDetails;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
 import com.expensereimbursementsystem.exceptions.ExpenseNotFoundException;
+import com.expensereimbursementsystem.repository.EmployeeRepository;
 import com.expensereimbursementsystem.repository.ExpenseDetailsRepository;
 
+@Service
+@Transactional
 public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 
 	@Autowired
 	ExpenseDetailsRepository expenseDetailsRepository;
+	
+	@Autowired
+	EmployeeRepository employeeRepository;
 
 	@Override
 	public List<ExpenseDetails> fetchAll() {
@@ -23,24 +32,25 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 	}
 
 	@Override
-	public ExpenseDetails fetchById(Integer id) throws ExpenseNotFoundException {
+	public ExpenseDetails fetchById(Integer expenseId) throws ExpenseNotFoundException {
 		
-		Optional<ExpenseDetails> expenseDetails = expenseDetailsRepository.findById(id);
-		if(expenseDetails.isPresent())
-		{
+		Optional<ExpenseDetails> expenseDetails = expenseDetailsRepository.findById(expenseId);
+		if(expenseDetails.isPresent()) {
 			return expenseDetails.get();
 		}
-		else
-		{
-			throw new ExpenseNotFoundException("Expense Details Not Found");
-		}
-		
+		else throw new ExpenseNotFoundException("Expense Details Not Found");
+
 	}
 
 	@Override
-	public ExpenseDetails fetchByEmployeeId(Integer employeeId) {
+	public List<ExpenseDetails> fetchByEmployeeId(Integer employeeId) throws EmployeeNotFoundException {
 		
-		return null;
+		Optional<Employee> employee = employeeRepository.findById(employeeId);
+		if(!employee.isPresent()) throw new EmployeeNotFoundException("Employee Not Found");
+		else {
+			return employee.get().getExpenseRequests();
+		}
+		
 	}
 
 	@Override

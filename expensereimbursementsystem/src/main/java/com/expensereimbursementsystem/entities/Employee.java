@@ -39,8 +39,8 @@ public class Employee {
 	public Employee() {}
 
 	
-	//Parameterized Constructors
-	
+	//Parameterized Constructor
+
 	public Employee(String name, String email, String role) {
 		this.name = name;
 		this.email = email;
@@ -87,6 +87,11 @@ public class Employee {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	
+	public List<ExpenseDetails> getExpenseRequests() {
+		return expenseRequests;
 	}
 
 
