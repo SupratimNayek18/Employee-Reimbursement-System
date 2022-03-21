@@ -1,6 +1,5 @@
 package com.expensereimbursementsystem.repository;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.expensereimbursementsystem.entities.Employee;

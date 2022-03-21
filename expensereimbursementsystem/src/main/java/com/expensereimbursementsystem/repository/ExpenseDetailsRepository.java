@@ -10,7 +10,7 @@ import com.expensereimbursementsystem.entities.ExpenseDetails;
 public interface ExpenseDetailsRepository extends CrudRepository<ExpenseDetails, Integer> {
 
 	@Modifying
-	@Query("update expense_details ed set ed.status=:status where ed.id=:id")
+	@Query("update ExpenseDetails ed set ed.status=:status where ed.id=:id")
 	public Integer updateStatus(@Param("status") String status,
 								@Param("id") Integer id); 
 	
