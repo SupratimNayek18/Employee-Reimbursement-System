@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.ExpenseDetails;
+import com.expensereimbursementsystem.exceptions.AccessDeniedException;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
 import com.expensereimbursementsystem.exceptions.ExpenseNotFoundException;
 import com.expensereimbursementsystem.repository.EmployeeRepository;
@@ -26,9 +27,26 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 	EmployeeRepository employeeRepository;
 
 	@Override
-	public List<ExpenseDetails> fetchAll() {
+	public List<ExpenseDetails> fetchAll(Integer employeeId) throws ExpenseNotFoundException, 
+																	EmployeeNotFoundException, 
+																	AccessDeniedException {
 		
-		return null;
+		Optional<Employee> employee = employeeRepository.findById(employeeId);
+		if(!employee.isPresent()) throw new EmployeeNotFoundException("Employee Not Found");
+		else {
+			if(employee
+					.get()
+					.getRole()
+					.toLowerCase()
+					.compareTo("finance manager")!=0) throw new AccessDeniedException("You Have No Access");
+		}
+		
+		List<ExpenseDetails> expenseDetails = (List<ExpenseDetails>) expenseDetailsRepository.findAll();
+		if(expenseDetails.isEmpty()) throw new ExpenseNotFoundException("No Expense Requests Found");
+		else {
+			return expenseDetails;
+		}
+		
 	}
 
 	@Override
@@ -54,9 +72,21 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 	}
 
 	@Override
-	public ExpenseDetails updateExpense(String status, Integer id) {
+	public String updateExpense(Integer employeeId,String status, Integer id) throws EmployeeNotFoundException, 
+																					 AccessDeniedException {
 		
-		return null;
+		Optional<Employee> employee = employeeRepository.findById(employeeId);
+		if(!employee.isPresent()) throw new EmployeeNotFoundException("Employee Not Found");
+		else {
+			if(employee
+					.get()
+					.getRole()
+					.toLowerCase()
+					.compareTo("finance manager")!=0) throw new AccessDeniedException("You Have No Access");
+		}
+		Integer row = expenseDetailsRepository.updateStatus(status, id);
+		return row + " updated";
+		
 	}
 
 }
