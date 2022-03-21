@@ -20,7 +20,7 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 	}
 
 	@Override
-	public ExpenseDetails fetchByEmployee(Employee employee) {
+	public ExpenseDetails fetchByEmployeeId(Integer employeeId) {
 		
 		return null;
 	}
