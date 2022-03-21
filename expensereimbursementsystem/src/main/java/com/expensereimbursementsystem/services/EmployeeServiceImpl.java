@@ -27,6 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public UserCredentials addEmployee(Employee employee, UserCredentials userCredentials) {
+		
 		//saving the employee first
 		Employee savedEmployee = employeeRepository.save(employee);
 		
@@ -35,19 +36,34 @@ public class EmployeeServiceImpl implements EmployeeService {
 		 
 		//return saved employee from saved user creds record
 		return userCredentialsRepository.save(userCredentials);
+		
+	}
+	
+	@Override
+	public Employee login(String username, String password) throws EmployeeNotFoundException {
+		
+		UserCredentials userCredentials = userCredentialsRepository.login(username, password);
+		if(userCredentials==null) throw new EmployeeNotFoundException("Incorrect Credentials");
+		else {
+			return userCredentials.getEmployee();
+		}
+		
 	}
 
 	@Override
 	public List<Employee> viewAllEmployee() throws EmployeeNotFoundException {
+		
 		List<Employee> employeeList = (List<Employee>) employeeRepository.findAll();
 		if(employeeList.size() == 0) {
 			throw new EmployeeNotFoundException("No Employees Found");
 		}
 		return employeeList;
+		
 	}
 
 	@Override
 	public String deleteEmployee(Integer employeeId) throws DeleteEmployeeException{
+		
 		if (employeeRepository.findById(employeeId).isPresent()) {
 			employeeRepository.deleteById(employeeId);
 			return "Employee Deleted Successfully";
@@ -67,5 +83,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		else throw new EmployeeNotFoundException("Employee Not Found");
 		
 	}
+
+	
 
 }

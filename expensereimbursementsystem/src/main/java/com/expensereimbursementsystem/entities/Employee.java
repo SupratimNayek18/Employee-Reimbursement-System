@@ -93,6 +93,11 @@ public class Employee {
 	public List<ExpenseDetails> getExpenseRequests() {
 		return expenseRequests;
 	}
+	
+	public void add(ExpenseDetails expenseDetails) {
+		expenseRequests.add(expenseDetails);
+		expenseDetails.setEmployee(this);
+	}
 
 
 	//toString method

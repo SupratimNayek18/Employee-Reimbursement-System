@@ -70,6 +70,18 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 		}
 		
 	}
+	
+	@Override
+	public String addExpenseRequest(ExpenseDetails expenseDetails, Integer employeeId) throws EmployeeNotFoundException {
+		Optional<Employee> result = employeeRepository.findById(employeeId);
+		if(!result.isPresent()) throw new EmployeeNotFoundException("Employee Not Found");
+		else {
+			Employee employee = result.get();
+			employee.add(expenseDetails);
+			employeeRepository.save(employee);
+			return "Request Submitted Successfully";
+		}
+	}
 
 	@Override
 	public String updateExpense(Integer employeeId,String status, Integer id) throws EmployeeNotFoundException, 
@@ -88,5 +100,7 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 		return row + " updated";
 		
 	}
+
+	
 
 }

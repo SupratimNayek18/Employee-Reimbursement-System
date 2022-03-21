@@ -109,6 +109,14 @@ public class ExpenseDetails {
 
 	//toString method
 	
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", description=" + description + ", status=" + status + ", requestDate="

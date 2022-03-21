@@ -11,6 +11,8 @@ public interface EmployeeService {
 
 	public UserCredentials addEmployee(Employee employee,UserCredentials userCredentials);
 	
+	public Employee login(String username,String password) throws EmployeeNotFoundException;
+	
 	public List<Employee> viewAllEmployee() throws EmployeeNotFoundException;
 
 	public String deleteEmployee(Integer employeeId) throws DeleteEmployeeException;

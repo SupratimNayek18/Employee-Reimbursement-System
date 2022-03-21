@@ -17,6 +17,8 @@ public interface ExpenseDetailsService {
 	
 	public List<ExpenseDetails> fetchByEmployeeId(Integer employeeId) throws EmployeeNotFoundException;
 	
+	public String addExpenseRequest(ExpenseDetails expenseDetails,Integer employeeId) throws EmployeeNotFoundException;
+	
 	public String updateExpense(Integer employeeId,String status, Integer id) throws EmployeeNotFoundException, 
 																					 AccessDeniedException;
 
