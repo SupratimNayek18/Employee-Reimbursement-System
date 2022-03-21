@@ -34,7 +34,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> viewAllEmployee() {
-		return null;
+		List<Employee> employeeList = employeeRepository.findAll();
+		if(employeeList.size() == 0) 
+		{
+					return null;
+		}
+		return employeeList;
 	}
 
 	@Override
@@ -50,7 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Employee viewEmployeeById(Integer employeeId)  {
-		return null;
+		
 	}
 
 }
