@@ -30,4 +30,13 @@ public class EmployeeController {
 		
 	}
 	
+	//implement login
+	
+	//view employee by id
+	
+	//view expense details by id
+	
+	//view expense details by employee id (will return a list)
+	
+	
 }
