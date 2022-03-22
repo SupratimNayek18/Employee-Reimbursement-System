@@ -12,6 +12,7 @@ import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.ExpenseDetails;
 import com.expensereimbursementsystem.exceptions.AccessDeniedException;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
+import com.expensereimbursementsystem.exceptions.ExceptionUtils;
 import com.expensereimbursementsystem.exceptions.ExpenseNotFoundException;
 import com.expensereimbursementsystem.repository.EmployeeRepository;
 import com.expensereimbursementsystem.repository.ExpenseDetailsRepository;
@@ -32,7 +33,7 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 																	AccessDeniedException {
 		
 		Optional<Employee> employee = employeeRepository.findById(employeeId);
-		if(!employee.isPresent()) throw new EmployeeNotFoundException("Employee Not Found");
+		if(!employee.isPresent()) throw new EmployeeNotFoundException(ExceptionUtils.EMPLOYEE_NOT_FOUND);
 		else {
 			if(employee
 					.get()
@@ -64,7 +65,7 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 	public List<ExpenseDetails> fetchByEmployeeId(Integer employeeId) throws EmployeeNotFoundException {
 		
 		Optional<Employee> employee = employeeRepository.findById(employeeId);
-		if(!employee.isPresent()) throw new EmployeeNotFoundException("Employee Not Found");
+		if(!employee.isPresent()) throw new EmployeeNotFoundException(ExceptionUtils.EMPLOYEE_NOT_FOUND);
 		else {
 			return employee.get().getExpenseRequests();
 		}
@@ -74,7 +75,7 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 	@Override
 	public String addExpenseRequest(ExpenseDetails expenseDetails, Integer employeeId) throws EmployeeNotFoundException {
 		Optional<Employee> result = employeeRepository.findById(employeeId);
-		if(!result.isPresent()) throw new EmployeeNotFoundException("Employee Not Found");
+		if(!result.isPresent()) throw new EmployeeNotFoundException(ExceptionUtils.EMPLOYEE_NOT_FOUND);
 		else {
 			Employee employee = result.get();
 			employee.add(expenseDetails);
@@ -88,7 +89,7 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 																					 AccessDeniedException {
 		
 		Optional<Employee> employee = employeeRepository.findById(employeeId);
-		if(!employee.isPresent()) throw new EmployeeNotFoundException("Employee Not Found");
+		if(!employee.isPresent()) throw new EmployeeNotFoundException(ExceptionUtils.EMPLOYEE_NOT_FOUND);
 		else {
 			if(employee
 					.get()

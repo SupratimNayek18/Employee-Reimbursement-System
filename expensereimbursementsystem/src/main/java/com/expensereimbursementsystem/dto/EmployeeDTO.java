@@ -1,7 +1,5 @@
 package com.expensereimbursementsystem.dto;
 
-import javax.persistence.Column;
-
 import org.springframework.stereotype.Component;
 
 @Component

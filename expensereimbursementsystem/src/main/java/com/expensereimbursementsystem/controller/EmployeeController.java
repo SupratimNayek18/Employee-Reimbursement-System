@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.expensereimbursementsystem.dto.EmployeeDTO;
-import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.ExpenseDetails;
 import com.expensereimbursementsystem.entities.UserCredentials;
 import com.expensereimbursementsystem.exceptions.AccessDeniedException;
@@ -46,7 +45,7 @@ public class EmployeeController {
 
 	// view employee by id 
 	@GetMapping("/getEmployee/{id}")
-	public  ResponseEntity<Employee> viewEmployeeById(@PathVariable(value = "id") Integer employeeId) throws EmployeeNotFoundException {
+	public  ResponseEntity<EmployeeDTO> viewEmployeeById(@PathVariable(value = "id") Integer employeeId) throws EmployeeNotFoundException {
 		return new ResponseEntity<>(employeeService.viewEmployeeById(employeeId),HttpStatus.OK);
 	}
 
@@ -61,7 +60,7 @@ public class EmployeeController {
 	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable(value ="id") Integer employeeId) throws EmployeeNotFoundException, ExpenseNotFoundException, AccessDeniedException {
 		return new ResponseEntity<>(expenseDetailsService.fetchAll(employeeId),HttpStatus.OK);
 	}
-	
-	
-	
+
+
+
 }

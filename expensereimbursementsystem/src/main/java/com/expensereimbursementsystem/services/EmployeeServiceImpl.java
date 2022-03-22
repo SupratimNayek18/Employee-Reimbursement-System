@@ -49,7 +49,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 	}
 	
-	
 
 	@Override
 	public Employee login(String username, String password) throws EmployeeNotFoundException {
@@ -90,7 +89,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		Optional<Employee> employee = employeeRepository.findById(employeeId);
 		if(employee.isPresent()) {
-			//TODO call conversion method entity to dto
 			ConverterUtils.convertEmployeeEntityToDTO(employeeDto, employee.get());
 			return employeeDto;
 		}
@@ -98,9 +96,4 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 	}
 	
-	
-	
-
-	
-
 }
