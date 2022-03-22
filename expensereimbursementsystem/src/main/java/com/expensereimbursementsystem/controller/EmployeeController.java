@@ -39,26 +39,26 @@ public class EmployeeController {
 
 		UserCredentials userCredentials = new UserCredentials(username, password);
 
-		return new ResponseEntity<UserCredentials>(employeeService.addEmployee(employee, userCredentials),HttpStatus.OK);
+		return new ResponseEntity<>(employeeService.addEmployee(employee, userCredentials),HttpStatus.OK);
 
 	}
 
 	// view employee by id 
 	@GetMapping("/getEmployee/{id}")
 	public  ResponseEntity<Employee> viewEmployeeById(@PathVariable(value = "id") Integer employeeId) throws EmployeeNotFoundException {
-		return new ResponseEntity<Employee>(employeeService.viewEmployeeById(employeeId),HttpStatus.OK);
+		return new ResponseEntity<>(employeeService.viewEmployeeById(employeeId),HttpStatus.OK);
 	}
 
 	// view expense details by id
 	@GetMapping("/getByExpenseId/{id}")
 	public ResponseEntity<ExpenseDetails> fetchById(@PathVariable(value = "id") Integer expenseId) throws ExpenseNotFoundException {
-		return new ResponseEntity<ExpenseDetails>(expenseDetailsService.fetchById(expenseId),HttpStatus.OK);
+		return new ResponseEntity<>(expenseDetailsService.fetchById(expenseId),HttpStatus.OK);
 	}
 
 	// view expense details by employee id (will return a list)
 	@GetMapping("/getByEmployeeId/{id}")
 	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable(value ="id") Integer employeeId) throws EmployeeNotFoundException, ExpenseNotFoundException, AccessDeniedException {
-		return new ResponseEntity<List<ExpenseDetails>>(expenseDetailsService.fetchAll(employeeId),HttpStatus.OK);
+		return new ResponseEntity<>(expenseDetailsService.fetchAll(employeeId),HttpStatus.OK);
 	}
 	
 	
