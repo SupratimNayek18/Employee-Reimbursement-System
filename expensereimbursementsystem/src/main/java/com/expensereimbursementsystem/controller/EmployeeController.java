@@ -32,17 +32,6 @@ public class EmployeeController {
 	@Autowired
 	ExpenseDetailsService expenseDetailsService;
 
-	// mapping for registration of new employee
-	@PostMapping("/register")
-	public ResponseEntity<UserCredentials>register(@RequestParam("username") String username,
-			@RequestParam("password") String password, @RequestBody EmployeeDTO employeeDto) {
-
-		UserCredentials userCredentials = new UserCredentials(username, password);
-
-		return new ResponseEntity<>(employeeService.addEmployee(employeeDto, userCredentials),HttpStatus.OK);
-
-	}
-
 	// view employee by id 
 	@GetMapping("/getEmployee/{id}")
 	public  ResponseEntity<EmployeeDTO> viewEmployeeById(@PathVariable(value = "id") Integer employeeId) throws EmployeeNotFoundException {
