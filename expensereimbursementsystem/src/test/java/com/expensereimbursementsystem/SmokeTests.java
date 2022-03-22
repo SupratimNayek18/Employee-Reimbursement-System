@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.expensereimbursementsystem.controller.DemoController;
 import com.expensereimbursementsystem.controller.EmployeeController;
+import com.expensereimbursementsystem.controller.EntryController;
 import com.expensereimbursementsystem.controller.FinanceManagerController;
 
 @SpringBootTest
@@ -19,7 +19,7 @@ class SmokeTests {
 	
 	
 	@Autowired
-	DemoController demoController;
+	EntryController entryController;
 	
 	@Autowired
 	FinanceManagerController financeManagerController;
@@ -27,7 +27,7 @@ class SmokeTests {
 	@Test
 	void contextLoads() {
 		assertThat(employeeController).isNotNull();
-		assertThat(demoController).isNotNull();
+		assertThat(entryController).isNotNull();
 		assertThat(financeManagerController).isNotNull();
 	}
 
