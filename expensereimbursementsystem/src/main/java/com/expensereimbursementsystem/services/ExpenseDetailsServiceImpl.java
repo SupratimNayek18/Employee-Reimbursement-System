@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.expensereimbursementsystem.dto.ExpenseDetailsDTO;
 import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.ExpenseDetails;
 import com.expensereimbursementsystem.exceptions.AccessDeniedException;
@@ -16,6 +17,7 @@ import com.expensereimbursementsystem.exceptions.ExceptionUtils;
 import com.expensereimbursementsystem.exceptions.ExpenseNotFoundException;
 import com.expensereimbursementsystem.repository.EmployeeRepository;
 import com.expensereimbursementsystem.repository.ExpenseDetailsRepository;
+import com.expensereimbursementsystem.utils.ConverterUtils;
 
 @Service
 @Transactional
@@ -26,6 +28,12 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 	
 	@Autowired
 	EmployeeRepository employeeRepository;
+	
+	@Autowired
+	ExpenseDetails expenseDetails;
+	
+	@Autowired
+	ExpenseDetailsDTO expenseDetailsDTO;
 
 	@Override
 	public List<ExpenseDetails> fetchAll(Integer employeeId) throws ExpenseNotFoundException, 
@@ -73,11 +81,13 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 	}
 	
 	@Override
-	public String addExpenseRequest(ExpenseDetails expenseDetails, Integer employeeId) throws EmployeeNotFoundException {
+	public String addExpenseRequest(ExpenseDetailsDTO expenseDetailsDTO, Integer employeeId) throws EmployeeNotFoundException {
 		Optional<Employee> result = employeeRepository.findById(employeeId);
 		if(!result.isPresent()) throw new EmployeeNotFoundException(ExceptionUtils.EMPLOYEE_NOT_FOUND);
 		else {
 			Employee employee = result.get();
+			ConverterUtils.convertExpenseDetailsDTOToEntity(expenseDetailsDTO, expenseDetails);
+			expenseDetailsRepository.save(expenseDetails);
 			employee.add(expenseDetails);
 			employeeRepository.save(employee);
 			return "Request Submitted Successfully";

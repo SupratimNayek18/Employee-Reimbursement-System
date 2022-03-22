@@ -13,7 +13,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.springframework.stereotype.Component;
 
+@Component
 @Entity
 @Table(name = "expense_details")
 public class ExpenseDetails {

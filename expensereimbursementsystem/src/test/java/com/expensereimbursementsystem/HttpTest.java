@@ -2,7 +2,11 @@ package com.expensereimbursementsystem;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.assertj.core.util.Arrays;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +19,7 @@ import com.expensereimbursementsystem.entities.Employee;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-public class HttpTest {
+class HttpTest {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -25,20 +29,26 @@ public class HttpTest {
 
 	private String getRootUrl() {
 		return "http://localhost:" + port;
-		}
+	}
 
 	@Test
-	public void testEmployeeById() {
-	Employee employee = restTemplate.getForObject(getRootUrl() + "/employee/getEmployee/1", Employee.class);
-	System.out.println(employee.getName());
-	assertThat(employee).isNotNull();
+	void testEmployeeById() {
+		Employee employee = restTemplate.getForObject(getRootUrl() + "/employee/getEmployee/1", Employee.class);
+		assertThat(employee).isNotNull();
 	}
-	
+
 	@Test
-	public void testAllEmployee() {
-	EmployeeDTO[] employeelist = restTemplate.getForObject(getRootUrl() + "/finance_manager/fetchAllEmployees", EmployeeDTO[].class);
-	System.out.println(Arrays.asList(employeelist));
-	assertThat(employeelist).isNotNull();
+	void testAllEmployee() {
+		
+		String str = restTemplate.getForObject(getRootUrl() + "/finance_manager/fetchAllEmployees", String.class);
+		JSONObject bookList = null;
+		try {
+			bookList = new JSONObject(str);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		assertThat(bookList).isNotNull();
 	}
 
 }

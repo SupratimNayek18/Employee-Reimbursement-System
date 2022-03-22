@@ -2,6 +2,7 @@ package com.expensereimbursementsystem.services;
 
 import java.util.List;
 
+import com.expensereimbursementsystem.dto.ExpenseDetailsDTO;
 import com.expensereimbursementsystem.entities.ExpenseDetails;
 import com.expensereimbursementsystem.exceptions.AccessDeniedException;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
@@ -17,7 +18,7 @@ public interface ExpenseDetailsService {
 	
 	public List<ExpenseDetails> fetchByEmployeeId(Integer employeeId) throws EmployeeNotFoundException;
 	
-	public String addExpenseRequest(ExpenseDetails expenseDetails,Integer employeeId) throws EmployeeNotFoundException;
+	public String addExpenseRequest(ExpenseDetailsDTO expenseDetailsDTO,Integer employeeId) throws EmployeeNotFoundException;
 	
 	public String updateExpense(Integer employeeId,String status, Integer id) throws EmployeeNotFoundException, 
 																					 AccessDeniedException;

@@ -1,5 +1,6 @@
 package com.expensereimbursementsystem.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.expensereimbursementsystem.dto.EmployeeDTO;
+import com.expensereimbursementsystem.dto.ExpenseDetailsDTO;
 import com.expensereimbursementsystem.entities.ExpenseDetails;
 import com.expensereimbursementsystem.exceptions.AccessDeniedException;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
@@ -41,11 +46,22 @@ public class EmployeeController {
 	}
 
 	// view expense details by employee id (will return a list)
-	@GetMapping("/getByEmployeeId/{id}")
+	@GetMapping("/getAllExpenses/{id}")
 	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable(value ="id") Integer employeeId) throws EmployeeNotFoundException, ExpenseNotFoundException, AccessDeniedException {
-		return new ResponseEntity<>(expenseDetailsService.fetchAll(employeeId),HttpStatus.OK);
+		return new ResponseEntity<>(expenseDetailsService.fetchByEmployeeId(employeeId),HttpStatus.OK);
 	}
-
+	
+	//add request
+	@PostMapping("/addRequest/{id}")
+	public ResponseEntity<String> addRequest(@PathVariable(value = "id") Integer employeeId,
+											 @RequestBody ExpenseDetailsDTO expenseDetailsDTO) throws EmployeeNotFoundException{
+		
+		expenseDetailsDTO.setRequestDate(LocalDate.now());
+		
+		return new ResponseEntity<>(expenseDetailsService.addExpenseRequest(expenseDetailsDTO, employeeId),HttpStatus.OK);
+		
+	}
+	
 
 
 }
