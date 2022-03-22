@@ -14,8 +14,10 @@ public class ConverterUtils {
 	}
 	
 	public static void convertEmployeeEntityToDTO(EmployeeDTO employeeDto, Employee empEntity) {
-		employeeDto.setEmail(empEntity.getEmail());
 		employeeDto.setId(empEntity.getId());
+		employeeDto.setName(empEntity.getName());
+		employeeDto.setEmail(empEntity.getEmail());
+		employeeDto.setRole(empEntity.getRole());
 	}
 
 }
