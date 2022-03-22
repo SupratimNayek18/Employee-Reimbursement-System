@@ -3,6 +3,8 @@ package com.expensereimbursementsystem.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,8 +45,8 @@ public class EmployeeController {
 
 	// view employee by id 
 	@GetMapping("/getEmployee/{id}")
-	public Employee viewEmployeeById(@PathVariable(value = "id") Integer employeeId) throws EmployeeNotFoundException {
-		return employeeService.viewEmployeeById(employeeId);
+	public  ResponseEntity<Employee> viewEmployeeById(@PathVariable(value = "id") Integer employeeId) throws EmployeeNotFoundException {
+		return new ResponseEntity<Employee>(employeeService.viewEmployeeById(employeeId),HttpStatus.OK);
 	}
 
 	// view expense details by id
