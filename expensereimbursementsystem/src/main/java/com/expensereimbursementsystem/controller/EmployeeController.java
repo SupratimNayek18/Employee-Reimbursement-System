@@ -34,12 +34,12 @@ public class EmployeeController {
 
 	// mapping for registration of new employee
 	@PostMapping("/register")
-	public UserCredentials register(@RequestParam("username") String username,
+	public ResponseEntity<UserCredentials>register(@RequestParam("username") String username,
 			@RequestParam("password") String password, @RequestBody Employee employee) {
 
 		UserCredentials userCredentials = new UserCredentials(username, password);
 
-		return employeeService.addEmployee(employee, userCredentials);
+		return new ResponseEntity<UserCredentials>(employeeService.addEmployee(employee, userCredentials),HttpStatus.OK);
 
 	}
 
