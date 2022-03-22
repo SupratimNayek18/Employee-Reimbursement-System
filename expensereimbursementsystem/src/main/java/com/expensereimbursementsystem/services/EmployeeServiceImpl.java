@@ -8,12 +8,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.expensereimbursementsystem.dto.EmployeeDTO;
 import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.UserCredentials;
 import com.expensereimbursementsystem.exceptions.DeleteEmployeeException;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
 import com.expensereimbursementsystem.repository.EmployeeRepository;
 import com.expensereimbursementsystem.repository.UserCredentialsRepository;
+import com.expensereimbursementsystem.utils.ConverterUtils;
 
 @Service
 @Transactional
@@ -23,13 +25,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 	EmployeeRepository employeeRepository;
 	
 	@Autowired
+	Employee empEntity;
+	
+	@Autowired
+	EmployeeDTO employeeDto;
+	
+	@Autowired
 	UserCredentialsRepository userCredentialsRepository;
 
 	@Override
-	public UserCredentials addEmployee(Employee employee, UserCredentials userCredentials) {
+	public UserCredentials addEmployee(EmployeeDTO employeeDto, UserCredentials userCredentials) {
+		
+		ConverterUtils.convertEmployeeDTOToEntity(employeeDto,empEntity);
 		
 		//saving the employee first
-		Employee savedEmployee = employeeRepository.save(employee);
+		Employee savedEmployee = employeeRepository.save(empEntity);
 		
 		//saving user creds then to get employee id
 		userCredentials.setEmployee(savedEmployee);
@@ -39,6 +49,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 	}
 	
+	
+
 	@Override
 	public Employee login(String username, String password) throws EmployeeNotFoundException {
 		
@@ -54,7 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<Employee> viewAllEmployee() throws EmployeeNotFoundException {
 		
 		List<Employee> employeeList = (List<Employee>) employeeRepository.findAll();
-		if(employeeList.size() == 0) {
+		if(employeeList.isEmpty()) {
 			throw new EmployeeNotFoundException("No Employees Found");
 		}
 		return employeeList;
@@ -74,15 +86,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee viewEmployeeById(Integer employeeId) throws EmployeeNotFoundException  {
+	public EmployeeDTO viewEmployeeById(Integer employeeId) throws EmployeeNotFoundException  {
 		
 		Optional<Employee> employee = employeeRepository.findById(employeeId);
 		if(employee.isPresent()) {
-			return employee.get();
+			//TODO call conversion method entity to dto
+			ConverterUtils.convertEmployeeEntityToDTO(employeeDto, employee.get());
+			return employeeDto;
 		}
 		else throw new EmployeeNotFoundException("Employee Not Found");
 		
 	}
+	
+	
+	
 
 	
 

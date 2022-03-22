@@ -32,7 +32,7 @@ public class Employee {
 	private String role;
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "employee")
-	private List<ExpenseDetails> expenseRequests = new ArrayList<ExpenseDetails>();
+	private List<ExpenseDetails> expenseRequests = new ArrayList<>();
 	
 	// Default Constructor
 	

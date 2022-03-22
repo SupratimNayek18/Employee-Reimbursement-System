@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.expensereimbursementsystem.dto.EmployeeDTO;
 import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.ExpenseDetails;
 import com.expensereimbursementsystem.entities.UserCredentials;
@@ -35,11 +36,11 @@ public class EmployeeController {
 	// mapping for registration of new employee
 	@PostMapping("/register")
 	public ResponseEntity<UserCredentials>register(@RequestParam("username") String username,
-			@RequestParam("password") String password, @RequestBody Employee employee) {
+			@RequestParam("password") String password, @RequestBody EmployeeDTO employeeDto) {
 
 		UserCredentials userCredentials = new UserCredentials(username, password);
 
-		return new ResponseEntity<>(employeeService.addEmployee(employee, userCredentials),HttpStatus.OK);
+		return new ResponseEntity<>(employeeService.addEmployee(employeeDto, userCredentials),HttpStatus.OK);
 
 	}
 
