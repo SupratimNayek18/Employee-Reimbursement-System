@@ -34,18 +34,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	UserCredentialsRepository userCredentialsRepository;
 
 	@Override
-	public UserCredentials addEmployee(EmployeeDTO employeeDto, UserCredentials userCredentials) {
+	public Employee addEmployee(EmployeeDTO employeeDto, UserCredentials userCredentials) {
 		
 		ConverterUtils.convertEmployeeDTOToEntity(employeeDto,empEntity);
 		
 		//saving the employee first
-		Employee savedEmployee = employeeRepository.save(empEntity);
+		UserCredentials savedCreds = userCredentialsRepository.save(userCredentials);
 		
-		//saving user creds then to get employee id
-		userCredentials.setEmployee(savedEmployee);
-		 
-		//return saved employee from saved user creds record
-		return userCredentialsRepository.save(userCredentials);
+		savedCreds.setEmployee(empEntity);
+		empEntity.setUserCredentials(savedCreds);
+		return employeeRepository.save(empEntity);
+		
 		
 	}
 	

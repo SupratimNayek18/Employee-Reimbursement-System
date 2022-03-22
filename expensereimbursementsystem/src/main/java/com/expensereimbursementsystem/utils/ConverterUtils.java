@@ -8,6 +8,7 @@ public class ConverterUtils {
 	private ConverterUtils() {}
 	
 	public static void convertEmployeeDTOToEntity(EmployeeDTO employeeDto, Employee empEntity) {
+		empEntity.setId(employeeDto.getId());
 		empEntity.setName(employeeDto.getName());
 		empEntity.setEmail(employeeDto.getEmail());
 		empEntity.setRole(employeeDto.getRole());

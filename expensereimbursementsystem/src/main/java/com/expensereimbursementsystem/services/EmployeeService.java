@@ -10,7 +10,7 @@ import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
 
 public interface EmployeeService {
 
-	public UserCredentials addEmployee(EmployeeDTO employeeDto,UserCredentials userCredentials);
+	public Employee addEmployee(EmployeeDTO employeeDto,UserCredentials userCredentials);
 	
 	public Employee login(String username,String password) throws EmployeeNotFoundException;
 	

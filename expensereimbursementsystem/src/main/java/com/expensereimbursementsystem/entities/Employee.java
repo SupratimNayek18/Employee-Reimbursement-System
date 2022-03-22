@@ -3,24 +3,28 @@ package com.expensereimbursementsystem.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Component
 @Entity
 @Table(name="employee_table")
 public class Employee {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id 
 	@Column(name = "employee_id")
 	private Integer id;
 	
@@ -33,6 +37,11 @@ public class Employee {
 	@Column(name="employee_role")
 	private String role;
 	
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private UserCredentials userCredentials;
+	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "employee")
 	private List<ExpenseDetails> expenseRequests = new ArrayList<>();
 	
@@ -99,6 +108,14 @@ public class Employee {
 	public void add(ExpenseDetails expenseDetails) {
 		expenseRequests.add(expenseDetails);
 		expenseDetails.setEmployee(this);
+	}
+	
+	public UserCredentials getUserCredentials() {
+		return userCredentials;
+	}
+	
+	public void setUserCredentials(UserCredentials userCredentials) {
+		this.userCredentials = userCredentials;
 	}
 
 

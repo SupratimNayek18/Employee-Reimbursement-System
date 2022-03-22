@@ -10,13 +10,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="user_credentials")
 public class UserCredentials {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="user_id")
 	private Integer userId;
 	
@@ -26,6 +28,7 @@ public class UserCredentials {
 	@Column(name="user_password")
 	private String userPassword;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "employee_id_fk",referencedColumnName = "employee_id")
 	private Employee employee;

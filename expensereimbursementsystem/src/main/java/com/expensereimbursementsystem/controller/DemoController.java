@@ -25,7 +25,7 @@ public class DemoController {
 
 
 	@PostMapping("/register")
-	public ResponseEntity<UserCredentials>register(@RequestParam("username") String username,
+	public ResponseEntity<Employee>register(@RequestParam("username") String username,
 			@RequestParam("password") String password, @RequestBody EmployeeDTO employeeDto) {
 
 		UserCredentials userCredentials = new UserCredentials(username, password);
@@ -39,9 +39,7 @@ public class DemoController {
 	public ResponseEntity<Employee>login(@RequestParam("username") String username,
 			@RequestParam("password") String password) throws EmployeeNotFoundException {
 
-
 		return new ResponseEntity<>(employeeService.login(username, password),HttpStatus.OK);
-
 
 	}
 
