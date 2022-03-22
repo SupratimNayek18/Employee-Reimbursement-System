@@ -51,14 +51,14 @@ public class EmployeeController {
 
 	// view expense details by id
 	@GetMapping("/getByExpenseId/{id}")
-	public ExpenseDetails fetchById(@PathVariable(value = "id") Integer expenseId) throws ExpenseNotFoundException {
-		return expenseDetailsService.fetchById(expenseId);
+	public ResponseEntity<ExpenseDetails> fetchById(@PathVariable(value = "id") Integer expenseId) throws ExpenseNotFoundException {
+		return new ResponseEntity<ExpenseDetails>(expenseDetailsService.fetchById(expenseId),HttpStatus.OK);
 	}
 
 	// view expense details by employee id (will return a list)
 	@GetMapping("/getByEmployeeId/{id}")
-	public List<ExpenseDetails> fetchByEmployeeId(@PathVariable(value ="id") Integer employeeId) throws EmployeeNotFoundException, ExpenseNotFoundException, AccessDeniedException {
-		return expenseDetailsService.fetchAll(employeeId);
+	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable(value ="id") Integer employeeId) throws EmployeeNotFoundException, ExpenseNotFoundException, AccessDeniedException {
+		return new ResponseEntity<List<ExpenseDetails>>(expenseDetailsService.fetchAll(employeeId),HttpStatus.OK);
 	}
 	
 	
