@@ -30,9 +30,6 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 	EmployeeRepository employeeRepository;
 	
 	@Autowired
-	ExpenseDetails expenseDetails;
-	
-	@Autowired
 	ExpenseDetailsDTO expenseDetailsDTO;
 
 	@Override
@@ -86,6 +83,7 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 		if(!result.isPresent()) throw new EmployeeNotFoundException(ExceptionUtils.EMPLOYEE_NOT_FOUND);
 		else {
 			Employee employee = result.get();
+			ExpenseDetails expenseDetails = new ExpenseDetails();
 			ConverterUtils.convertExpenseDetailsDTOToEntity(expenseDetailsDTO, expenseDetails);
 			expenseDetailsRepository.save(expenseDetails);
 			employee.add(expenseDetails);

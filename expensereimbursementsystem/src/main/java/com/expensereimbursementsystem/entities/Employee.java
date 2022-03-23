@@ -31,7 +31,7 @@ public class Employee {
 			@Parameter(name = "sequence_name", value = "employee_SEQ"),
 			@Parameter(name = "optimizer", value = "hilo"),
 			@Parameter(name = "initial_value", value = "1"),
-			@Parameter(name = "increment_size", value = "1") }
+			@Parameter(name = "increment_size", value = "2") }
 			)
 	@Column(name = "employee_id")
 	private Integer id;
@@ -45,7 +45,7 @@ public class Employee {
 	@Column(name="employee_role")
 	private String role;
 
-
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	private UserCredentials userCredentials;
 

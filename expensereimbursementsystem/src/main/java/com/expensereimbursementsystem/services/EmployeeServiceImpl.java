@@ -25,9 +25,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	EmployeeRepository employeeRepository;
 	
 	@Autowired
-	Employee empEntity;
-	
-	@Autowired
 	EmployeeDTO employeeDto;
 	
 	@Autowired
@@ -36,6 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee addEmployee(EmployeeDTO employeeDto, UserCredentials userCredentials) {
 		
+		Employee empEntity = new Employee();
 		ConverterUtils.convertEmployeeDTOToEntity(employeeDto,empEntity);
 		
 		//saving the employee first
