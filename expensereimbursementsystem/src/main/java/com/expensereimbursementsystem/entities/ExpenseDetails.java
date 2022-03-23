@@ -11,8 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,6 +39,7 @@ public class ExpenseDetails {
 	@Column(name = "description")
 	private String description;
 
+	@ColumnDefault(value = "new")
 	@Column(name = "status")
 	private String status;
 
