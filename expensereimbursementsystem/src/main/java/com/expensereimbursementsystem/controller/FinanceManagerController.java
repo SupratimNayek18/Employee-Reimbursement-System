@@ -36,20 +36,20 @@ public class FinanceManagerController {
 		return new ResponseEntity<>(employeeService.viewAllEmployee(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/fetchbyexpenseid/{id}")
-	public ResponseEntity<ExpenseDetails> fetchByExpenseId(@PathVariable (value="id") Integer id) throws ExpenseNotFoundException
+	@GetMapping("/fetchbyexpenseid/{expenseid}")
+	public ResponseEntity<ExpenseDetails> fetchByExpenseId(@PathVariable (value="expenseid") Integer id) throws ExpenseNotFoundException
 	{
 		return new ResponseEntity<>(expensedetailsService.fetchById(id),HttpStatus.OK);
 	}
 	
-	@GetMapping("/fetchbyemployeeid/{id}")
-	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable (value="id") Integer id) throws EmployeeNotFoundException, ExpenseNotFoundException
+	@GetMapping("/fetchbyemployeeid/{employeeid}")
+	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable (value="employeeid") Integer id) throws EmployeeNotFoundException, ExpenseNotFoundException
 	{
 		return new ResponseEntity<>(expensedetailsService.fetchByEmployeeId(id),HttpStatus.OK);
 	}
 	
-	@GetMapping("/fetchallrequests/{id}")
-	public ResponseEntity<List<ExpenseDetails>> fetchAllRequests(@PathVariable (value="id") Integer id) throws ExpenseNotFoundException, EmployeeNotFoundException, AccessDeniedException
+	@GetMapping("/fetchallrequests/{employeeid}")
+	public ResponseEntity<List<ExpenseDetails>> fetchAllRequests(@PathVariable (value="employeeid") Integer id) throws ExpenseNotFoundException, EmployeeNotFoundException, AccessDeniedException
 	{
 		return new ResponseEntity<>(expensedetailsService.fetchAll(id),HttpStatus.OK);
 	}
