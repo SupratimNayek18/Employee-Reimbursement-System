@@ -55,6 +55,7 @@ public class EmployeeController {
 											 @RequestBody ExpenseDetailsDTO expenseDetailsDTO) throws EmployeeNotFoundException{
 		
 		expenseDetailsDTO.setRequestDate(LocalDate.now());
+		expenseDetailsDTO.setStatus("new");
 		
 		return new ResponseEntity<>(expenseDetailsService.addExpenseRequest(expenseDetailsDTO, employeeId),HttpStatus.OK);
 		

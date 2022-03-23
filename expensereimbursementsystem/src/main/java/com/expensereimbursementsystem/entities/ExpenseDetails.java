@@ -38,8 +38,7 @@ public class ExpenseDetails {
 
 	@Column(name = "description")
 	private String description;
-
-	@ColumnDefault(value = "new")
+	
 	@Column(name = "status")
 	private String status;
 
@@ -52,7 +51,7 @@ public class ExpenseDetails {
 	@Column(name = "amount")
 	private double amount;
 	
-	@JsonIgnore
+	
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "employee_id_fk",referencedColumnName = "employee_id")
 	private Employee employee;
