@@ -18,7 +18,7 @@ import com.expensereimbursementsystem.services.EmployeeService;
 
 @RestController
 @RequestMapping("/")
-public class DemoController {
+public class EntryController {
 
 	@Autowired
 	EmployeeService employeeService;
