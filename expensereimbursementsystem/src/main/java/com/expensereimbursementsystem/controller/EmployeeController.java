@@ -38,20 +38,20 @@ public class EmployeeController {
 	}
 
 	// view expense details by id
-	@GetMapping("/getByExpenseId/{id}")
-	public ResponseEntity<ExpenseDetails> fetchById(@PathVariable(value = "id") Integer expenseId) throws ExpenseNotFoundException {
+	@GetMapping("/getByExpenseId/{expenseid}")
+	public ResponseEntity<ExpenseDetails> fetchById(@PathVariable(value = "expenseid") Integer expenseId) throws ExpenseNotFoundException {
 		return new ResponseEntity<>(expenseDetailsService.fetchById(expenseId),HttpStatus.OK);
 	}
 
 	// view expense details by employee id (will return a list)
-	@GetMapping("/getAllExpenses/{id}")
-	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable(value ="id") Integer employeeId) throws EmployeeNotFoundException, ExpenseNotFoundException {
+	@GetMapping("/getAllExpenses/{employeeid}")
+	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable(value ="employeeid") Integer employeeId) throws EmployeeNotFoundException, ExpenseNotFoundException {
 		return new ResponseEntity<>(expenseDetailsService.fetchByEmployeeId(employeeId),HttpStatus.OK);
 	}
 	
 	//add request
-	@PostMapping("/addRequest/{id}")
-	public ResponseEntity<String> addRequest(@PathVariable(value = "id") Integer employeeId,
+	@PostMapping("/addRequest/{employeeid}")
+	public ResponseEntity<String> addRequest(@PathVariable(value = "employeeid") Integer employeeId,
 											 @RequestBody ExpenseDetailsDTO expenseDetailsDTO) throws EmployeeNotFoundException{
 		
 		expenseDetailsDTO.setRequestDate(LocalDate.now());
