@@ -16,8 +16,6 @@ class SmokeTests {
 	@Autowired
 	EmployeeController employeeController;
 	
-	
-	
 	@Autowired
 	EntryController entryController;
 	
