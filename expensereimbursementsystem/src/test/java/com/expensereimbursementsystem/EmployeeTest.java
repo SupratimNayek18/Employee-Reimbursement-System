@@ -19,7 +19,7 @@ import com.expensereimbursementsystem.entities.Employee;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-class HttpTest {
+class EmployeeTest {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
