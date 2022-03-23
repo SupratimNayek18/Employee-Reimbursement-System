@@ -55,9 +55,9 @@ public class FinanceManagerController {
 	}
 	
 	@PutMapping("/updatestatusofrequest")
-	public ResponseEntity<String>updateRequestStatus(@RequestParam Integer employeeId ,@RequestParam String status ,@RequestParam Integer id) throws EmployeeNotFoundException, AccessDeniedException
+	public ResponseEntity<String>updateRequestStatus(@RequestParam Integer employeeId ,@RequestParam String status ,@RequestParam Integer expenseId) throws EmployeeNotFoundException, AccessDeniedException
 	{
-		return new ResponseEntity<>(expensedetailsService.updateExpense(employeeId, status, id),HttpStatus.OK);
+		return new ResponseEntity<>(expensedetailsService.updateExpense(employeeId, status, expenseId),HttpStatus.OK);
 	}
 	
 }
