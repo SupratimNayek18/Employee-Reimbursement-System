@@ -34,9 +34,35 @@ class EmployeeControllerTest {
 	}
 	
 	//TODO test for get mapping for fetching expense by id
+	@Test
+	void testByExpenseId() {
+		
+		try {
+			mvc.perform(get("/employee/getByExpenseId/1"))
+			  .andExpect(status().isOk())
+			  .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 
 	//TODO test for viewing expense details by employee id
 	
+	@Test
+	void testExpenseByEmployeeId() {
+		
+		try {
+			mvc.perform(get("/employee/getAllExpenses/1"))
+			  .andExpect(status().isOk())
+			  .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 
 }

@@ -47,6 +47,19 @@ class FinanceManagerControllerTest {
 	}
 	
 	//TODO test for get expenses by employee id
+	@Test
+	void testExpensesByEmployeeId() {
+		try {
+			mvc.perform(get("/finance_manager/fetchbyemployeeid/1"))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	
 	
 	//TODO test for fetching all requests and also checking access
 
