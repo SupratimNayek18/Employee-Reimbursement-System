@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.expensereimbursementsystem.dto.EmployeeDTO;
 import com.expensereimbursementsystem.dto.ExpenseDetailsDTO;
 import com.expensereimbursementsystem.entities.ExpenseDetails;
-import com.expensereimbursementsystem.exceptions.AccessDeniedException;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
 import com.expensereimbursementsystem.exceptions.ExpenseNotFoundException;
 import com.expensereimbursementsystem.services.EmployeeService;
@@ -47,7 +45,7 @@ public class EmployeeController {
 
 	// view expense details by employee id (will return a list)
 	@GetMapping("/getAllExpenses/{id}")
-	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable(value ="id") Integer employeeId) throws EmployeeNotFoundException, ExpenseNotFoundException, AccessDeniedException {
+	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable(value ="id") Integer employeeId) throws EmployeeNotFoundException, ExpenseNotFoundException {
 		return new ResponseEntity<>(expenseDetailsService.fetchByEmployeeId(employeeId),HttpStatus.OK);
 	}
 	

@@ -1,5 +1,6 @@
 package com.expensereimbursementsystem.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,12 +68,14 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 	}
 
 	@Override
-	public List<ExpenseDetails> fetchByEmployeeId(Integer employeeId) throws EmployeeNotFoundException {
+	public List<ExpenseDetails> fetchByEmployeeId(Integer employeeId) throws EmployeeNotFoundException, ExpenseNotFoundException {
 		
 		Optional<Employee> employee = employeeRepository.findById(employeeId);
 		if(!employee.isPresent()) throw new EmployeeNotFoundException(ExceptionUtils.EMPLOYEE_NOT_FOUND);
 		else {
-			return employee.get().getExpenseRequests();
+			List<ExpenseDetails> expenseDetails = employee.get().getExpenseRequests();
+			if(expenseDetails.isEmpty()) throw new ExpenseNotFoundException("No Expenses Found");
+			return expenseDetails;
 		}
 		
 	}
@@ -105,7 +108,7 @@ public class ExpenseDetailsServiceImpl implements ExpenseDetailsService {
 					.toLowerCase()
 					.compareTo("finance manager")!=0) throw new AccessDeniedException("You Have No Access");
 		}
-		Integer row = expenseDetailsRepository.updateStatus(status, id);
+		Integer row = expenseDetailsRepository.updateStatus(status, id,LocalDate.now());
 		return row + " updated";
 		
 	}

@@ -43,7 +43,7 @@ public class FinanceManagerController {
 	}
 	
 	@GetMapping("/fetchbyemployeeid/{id}")
-	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable (value="id") Integer id) throws EmployeeNotFoundException
+	public ResponseEntity<List<ExpenseDetails>> fetchByEmployeeId(@PathVariable (value="id") Integer id) throws EmployeeNotFoundException, ExpenseNotFoundException
 	{
 		return new ResponseEntity<>(expensedetailsService.fetchByEmployeeId(id),HttpStatus.OK);
 	}
