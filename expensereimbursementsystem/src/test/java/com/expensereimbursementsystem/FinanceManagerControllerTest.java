@@ -46,7 +46,7 @@ class FinanceManagerControllerTest {
 
 	}
 	
-	//TODO test for get expenses by employee id
+	//test for get expenses by employee id
 	@Test
 	void testExpensesByEmployeeId() {
 		try {
@@ -59,10 +59,31 @@ class FinanceManagerControllerTest {
 
 	}
 	
-	
-	
-	//TODO test for fetching all requests and also checking access
 
+	//test for fetching all requests and checking forbidden access
+	@Test
+	void testAllRequestsForbidden() {
+		try {
+			mvc.perform(get("/finance_manager/fetchallrequests/1"))
+			.andExpect(status().isForbidden());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	//test for fetching all requests and checking ok access
+	@Test
+	void testAllRequestsOk() {
+		try {
+			mvc.perform(get("/finance_manager/fetchallrequests/3"))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 
 
 
