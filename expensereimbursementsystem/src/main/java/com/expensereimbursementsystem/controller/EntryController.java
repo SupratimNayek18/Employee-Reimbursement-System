@@ -15,6 +15,7 @@ import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.UserCredentials;
 import com.expensereimbursementsystem.exceptions.EmailAddressException;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
+import com.expensereimbursementsystem.exceptions.EmployeeRegistrationException;
 import com.expensereimbursementsystem.services.EmployeeService;
 
 @RestController
@@ -27,7 +28,7 @@ public class EntryController {
 
 	@PostMapping("/register")
 	public ResponseEntity<Employee>register(@RequestParam("username") String username,
-			@RequestParam("password") String password, @RequestBody EmployeeDTO employeeDto) throws EmailAddressException {
+			@RequestParam("password") String password, @RequestBody EmployeeDTO employeeDto) throws EmailAddressException, EmployeeRegistrationException {
 
 		UserCredentials userCredentials = new UserCredentials(username, password);
 

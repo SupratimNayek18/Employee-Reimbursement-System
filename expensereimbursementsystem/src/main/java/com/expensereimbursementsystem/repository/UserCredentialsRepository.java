@@ -8,7 +8,7 @@ import com.expensereimbursementsystem.entities.UserCredentials;
 
 public interface UserCredentialsRepository extends CrudRepository<UserCredentials, Integer> {
 	
-	@Query("select uc from UserCredentials uc where uc.userName=:userName and uc.userPassword=:userPassword")
-	public UserCredentials login(@Param("userName") String userName,@Param("userPassword") String userPassword);
+	@Query("select uc from UserCredentials uc where uc.userName=:userName")
+	public UserCredentials login(@Param("userName") String userName);
 	
 }

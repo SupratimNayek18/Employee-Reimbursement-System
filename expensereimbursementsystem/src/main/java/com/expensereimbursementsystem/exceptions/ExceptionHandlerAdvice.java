@@ -38,5 +38,11 @@ public class ExceptionHandlerAdvice {
 		return  new ResponseEntity<>(eae.getMessage(),HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(EmployeeRegistrationException.class)
+	public ResponseEntity<String> employeeRegistrationException(EmployeeRegistrationException ere)
+	{
+		return  new ResponseEntity<>(ere.getMessage(),HttpStatus.IM_USED);
+	}
+	
 	
 }

@@ -14,9 +14,11 @@ import com.expensereimbursementsystem.entities.UserCredentials;
 import com.expensereimbursementsystem.exceptions.DeleteEmployeeException;
 import com.expensereimbursementsystem.exceptions.EmailAddressException;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
+import com.expensereimbursementsystem.exceptions.EmployeeRegistrationException;
 import com.expensereimbursementsystem.repository.EmployeeRepository;
 import com.expensereimbursementsystem.repository.UserCredentialsRepository;
 import com.expensereimbursementsystem.utils.ConverterUtils;
+import com.expensereimbursementsystem.utils.CustomPasswordEncoder;
 import com.expensereimbursementsystem.utils.ValidationUtils;
 
 @Service
@@ -30,12 +32,29 @@ public class EmployeeServiceImpl implements EmployeeService {
 	EmployeeDTO employeeDto;
 	
 	@Autowired
+	CustomPasswordEncoder passwordEncoder;
+	
+	@Autowired
 	UserCredentialsRepository userCredentialsRepository;
 
 	@Override
-	public Employee addEmployee(EmployeeDTO employeeDto, UserCredentials userCredentials) throws EmailAddressException {
+	public Employee addEmployee(EmployeeDTO employeeDto, UserCredentials userCredentials) throws EmailAddressException, EmployeeRegistrationException {
+		
+		//checking is username already exists
+		if(userCredentialsRepository.login(userCredentials.getUserName())!=null) {
+			throw new EmployeeRegistrationException("Username already exists");
+		}
 		
 		if(!ValidationUtils.patternMatches(employeeDto.getEmail())) throw new EmailAddressException("Invalid Email Address");
+		
+		//checking if email already exists
+		if(employeeRepository.emailCheck(employeeDto.getEmail())!=null) {
+			throw new EmployeeRegistrationException("Email already exists");
+		}
+		
+		//encoding password
+		String password = userCredentials.getUserPassword();
+		userCredentials.setUserPassword(passwordEncoder.encode(password));
 		
 		Employee empEntity = new Employee();
 		ConverterUtils.convertEmployeeDTOToEntity(employeeDto,empEntity);
@@ -47,17 +66,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 		empEntity.setUserCredentials(savedCreds);
 		return employeeRepository.save(empEntity);
 		
-		
 	}
 	
 
 	@Override
 	public Employee login(String username, String password) throws EmployeeNotFoundException {
 		
-		UserCredentials userCredentials = userCredentialsRepository.login(username, password);
+		UserCredentials userCredentials = userCredentialsRepository.login(username);
 		if(userCredentials==null) throw new EmployeeNotFoundException("Incorrect Credentials");
 		else {
-			return userCredentials.getEmployee();
+			if(passwordEncoder.matches(password, userCredentials.getUserPassword())) {
+				return userCredentials.getEmployee();
+			}else throw new EmployeeNotFoundException("Incorrect Credentials");
 		}
 		
 	}
