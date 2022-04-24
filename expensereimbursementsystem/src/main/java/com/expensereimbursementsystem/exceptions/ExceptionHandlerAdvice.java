@@ -32,5 +32,11 @@ public class ExceptionHandlerAdvice {
 		return  new ResponseEntity<>(dex.getMessage(),HttpStatus.NOT_FOUND);
 	}
 	
+	@ExceptionHandler(EmailAddressException.class)
+	public ResponseEntity<String> emailAddressException(EmailAddressException eae)
+	{
+		return  new ResponseEntity<>(eae.getMessage(),HttpStatus.BAD_REQUEST);
+	}
+	
 	
 }

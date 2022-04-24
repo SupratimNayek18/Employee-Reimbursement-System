@@ -12,10 +12,12 @@ import com.expensereimbursementsystem.dto.EmployeeDTO;
 import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.UserCredentials;
 import com.expensereimbursementsystem.exceptions.DeleteEmployeeException;
+import com.expensereimbursementsystem.exceptions.EmailAddressException;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
 import com.expensereimbursementsystem.repository.EmployeeRepository;
 import com.expensereimbursementsystem.repository.UserCredentialsRepository;
 import com.expensereimbursementsystem.utils.ConverterUtils;
+import com.expensereimbursementsystem.utils.ValidationUtils;
 
 @Service
 @Transactional
@@ -31,7 +33,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	UserCredentialsRepository userCredentialsRepository;
 
 	@Override
-	public Employee addEmployee(EmployeeDTO employeeDto, UserCredentials userCredentials) {
+	public Employee addEmployee(EmployeeDTO employeeDto, UserCredentials userCredentials) throws EmailAddressException {
+		
+		if(!ValidationUtils.patternMatches(employeeDto.getEmail())) throw new EmailAddressException("Invalid Email Address");
 		
 		Employee empEntity = new Employee();
 		ConverterUtils.convertEmployeeDTOToEntity(employeeDto,empEntity);

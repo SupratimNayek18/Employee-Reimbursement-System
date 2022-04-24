@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.expensereimbursementsystem.dto.EmployeeDTO;
 import com.expensereimbursementsystem.entities.Employee;
 import com.expensereimbursementsystem.entities.UserCredentials;
+import com.expensereimbursementsystem.exceptions.EmailAddressException;
 import com.expensereimbursementsystem.exceptions.EmployeeNotFoundException;
 import com.expensereimbursementsystem.services.EmployeeService;
 
@@ -26,7 +27,7 @@ public class EntryController {
 
 	@PostMapping("/register")
 	public ResponseEntity<Employee>register(@RequestParam("username") String username,
-			@RequestParam("password") String password, @RequestBody EmployeeDTO employeeDto) {
+			@RequestParam("password") String password, @RequestBody EmployeeDTO employeeDto) throws EmailAddressException {
 
 		UserCredentials userCredentials = new UserCredentials(username, password);
 
